@@ -31,6 +31,11 @@ This plugin emit record like below:
 }
 ```
 
+## TODO
+
+write test with travis.
+
+
 ## ChangeLog
 
 See [CHANGELOG.md](CHANGELOG.md) for details.

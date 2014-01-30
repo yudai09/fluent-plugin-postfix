@@ -1,16 +1,15 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fluent/plugin/sendmail/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "fluent-plugin-sendmail"
-  spec.version       = Fluent::Plugin::Sendmail::VERSION
+  spec.version       = "0.0.0"
   spec.authors       = ["muddydixon"]
   spec.email         = ["muddydixon@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.summary       = "Fluentd plugin to parse and merge sendmail syslog."
+  spec.description   = spec.summary
+  spec.homepage      = "https://github.com/muddydixon/fluent-plugin-sendmail"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
