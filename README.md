@@ -1,40 +1,46 @@
-# Fluent::Plugin::Sendmail
+# Fluent::Plugin::Postfix
 
-Fluentd plugin to parse and merge sendmail syslog.
+Fluentd plugin to parse and merge postfix syslog.
+This plugin is a clone of fluent-plugin-sendmail written by muddydixon.
 
 ## Configuration
 
 ```
 <source>
-  type sendmail
-  path ./syslog.log
-  pos_file ./syslog.log.pos
-  tag sendmail
+  type postfix
+  path /var/log/maillog
+  pos_file /var/log/td-agent/mail.log.pos
+  tag postfixlog
 </source>
 ```
 
 This plugin emit record like below:
 
 ```
-2014-01-10 01:00:01 +0900 sendmail: {
-  "from":"<sample@nifty.com>",
-  "relay":{"ip":"111.111.111.111","host":null},
-  "count":"6",
-  "msgid":"<201401091559.ajcwij92gj4sdf@example.com>",
-  "popid":null,
-  "authid":"1004093333",
-  "to":[
-    {"to":["<sample1@example1.com>"],"relay":{"ip":"111.111.110.111","host":"example1.com."}},
-    {"to":["<sample2@example2.com>","<sample3@example2.com>"],"relay":{"ip":"111.111.110.112","host":null}},
-    {"to":["<sample4@example3.com>"],"relay":{"ip":"111.111.110.113","host":"example3.com."}}
-  ]
+2014-08-19T09:25:10Z    postfixlog
+{
+	"client":"localhost[127.0.0.1]",
+	"from":"<localpart@example.com>",
+	"authid":"user",
+	"to":[
+		{
+		"recipient":"<grandeur09@gmail.com>",
+		"relay":"gmail-smtp-in.l.google.com[74.125.23.27]:25",
+		"status":["sent","250 2.0.0 OK 1408440312 ar2si14557666pbc.249 - gsmtp"]
+		},
+		{
+		"recipient":"<localpart@example.com>",
+		"relay":"none",
+		"status":["deferred","connect to example.com[93.184.216.119]:25: Connection timed out"]
+		}
+	]
 }
 ```
 
 ## TODO
 
-write test with travis.
-
+Write test code
+(This plugin is worked on CentOS release 6.5, fluentd 0.10.50, and Postfix 2.6.6.)
 
 ## ChangeLog
 
