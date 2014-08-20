@@ -1,7 +1,7 @@
 class PostfixParser
   
   def initialize(conf)
-    @base_regexp = /^(?<time>\w+ \w+ \d+:\d+:\d+) (?<host>\w+) (?<daemon>[^ ]+): (?<queueid>\w+): (?<entry>(?<type>[^=]+).*)$/
+    @base_regexp = /^(?<time>\w+\s+\w+\s+\d+:\d+:\d+) (?<host>\w+) (?<daemon>[^ ]+): (?<queueid>\w+): (?<entry>(?<type>[^=]+).*)$/
     @to_status_regexp = /^(?<code>\w+) \((?<detail>.+)\)$/
   end
 
@@ -34,6 +34,9 @@ class PostfixParser
     if entry.include?("status=deferred")
       return :deferred, record
     end
+    if entry.include?("status=bounced")
+      return :bounced, record
+    end
     return nil, nil
   end
 
@@ -53,7 +56,7 @@ class PostfixParser
   def parse(value)
     m = @base_regexp.match(value)
     unless m
-      # $log.warn "postfix: pattern not match: #{value.inspect}"
+      $log.warn "postfix: pattern not match: #{value.inspect}"
       return nil, nil, nil, nil
     end
     type = nil
