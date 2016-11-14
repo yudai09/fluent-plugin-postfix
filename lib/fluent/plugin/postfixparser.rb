@@ -1,7 +1,7 @@
 class PostfixParser
   
   def initialize(conf)
-    @base_regexp = /^(?<time>\w+\s+\w+\s+\d+:\d+:\d+) (?<host>\w+) (?<daemon>[^ ]+): (?<queueid>\w+): (?<entry>(?<type>[^=]+).*)$/
+    @base_regexp = /^(?<time>\w+\s+\w+\s+\d+:\d+:\d+) (?<host>[^ ]+) (?<daemon>[^ ]+): (?<queueid>\w+): (?<entry>(?<type>[^=]+).*)$/
     @to_status_regexp = /^(?<code>\w+) \((?<detail>.+)\)$/
   end
 
